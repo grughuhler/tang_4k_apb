@@ -1,0 +1,37 @@
+This project is an example showing how to create APB bus completers
+for the Cortex M3 core on the Tang Nano 4K FPGA development board.
+This is the simplest way to connect designs created from FPGA
+resources to the Cortex M3 subsystem on the FPGA.
+
+The FPGA implements version 2 of the specification (APB2).  See ARM's
+document AMBA® APB Protocol Specification, ARM IHI 0024E (ID022823).
+
+The two completers are:
+
+1.  Some registers.  Base address 0x40002400.
+
+This is just four 32-bit memory-mapped registers that software on the
+M3 can read and write using word (32-bit), half-word, or byte loads
+and stores.
+
+2.  A PWM controller with one output that is connected to the LED on
+    the Tang Nano 4K. Base address 0x40002500.
+
+      Registers
+40002400:  Register 0
+40002404:  Register 1
+40002408:  Register 2
+4000240c:  Register 3
+
+40002500:  counter_limit
+40002504:  on_limit
+
+Cortex-M3 UART0 is also enabled.  Use speed 115200, 8-bits.  No parity
+or flow control.  See src/tang_4k_apb.cst for pin assignments.  There
+serial rx and tx pins are 3.3V.  You will need something like a USB to
+CMOS serial adapter.  Type "he" to see a list of commands the software
+provides.
+
+See c_code/README for software.
+
+Build the FPGA image using the Gowin IDE.  A project is provided.

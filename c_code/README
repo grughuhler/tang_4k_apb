@@ -1,0 +1,43 @@
+This directory contains an example application for the Cortex M3 core on
+the Tang Nano 4K FPGA development board.
+
+It demonstrates UART0 and two APB2 completers.
+
+I build the software on Linux (Ubuntu 22.04).  Actually, I run Ubuntu under
+the Windows Subsystem for Linux (WSL2).
+
+You will need to install a toolchain for the Cortex M3.  On Ubuntu, you
+can do
+
+  sudo apt install gcc-arm-none-eabi
+
+Also be sure that "make" is installed and the build by running
+
+  make
+
+This should create file prog.bin.
+
+You flash this on the FPGA on Windows by running the Gowin Programmer and
+
+  1.  Double click on the Operation
+  2.  Select Access Mode: MCU Mode
+  3.  Select Operation: "Firmware Erase; Program
+  4.  Select Firmware/Binary File: prog.bin
+  5.  Save
+  6.  Then click on the Program/Configure icon to do the flashing.
+
+On Linux with openFPGALoader, try
+
+  openFPGALoader -b tangnano4k -f tang_4k_getting_started.fs --mcufw prog.bin
+There is a hassle with UARTs on the Tang Nano 4K: the board does
+not connect any UART signals to the USB chip.  This means you must use
+external pins and a USB to 3.3V serial adapter. See file
+../src/tang_4k_getting_started.cst for the pin numbers.  Pin uart0_txd is
+the one the M3 transmits on.
+
+When the M3 runs, you should see
+
+1.  The onboard LED blinks (controlled by PWM controller)
+2.  Some stuff gets printed.
+3.  Type "he" to list commands.  You can use "ww" and "rr" to access the
+    completer registers.
