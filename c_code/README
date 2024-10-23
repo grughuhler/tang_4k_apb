@@ -11,7 +11,7 @@ can do
 
   sudo apt install gcc-arm-none-eabi
 
-Also be sure that "make" is installed and the build by running
+Also be sure that "make" is installed and then build by running
 
   make
 
@@ -40,4 +40,16 @@ When the M3 runs, you should see
 1.  The onboard LED blinks (controlled by PWM controller)
 2.  Some stuff gets printed.
 3.  Type "he" to list commands.  You can use "ww" and "rr" to access the
-    completer registers.
+    completer registers.  For example
+
+    ww 40002400 11223344
+    rw 40002400
+
+The system clock is 9 MHz (comming from a PLL).  To dim the LED
+instead of blinking it, set the PWM frequency to 200 Hz by writing
+9000000/200 in hex to COUNTER_LIMIT.  And then vary ON_LIMIT between
+0 and afc8 to set the brightness.  Half brightness for example:
+
+  ww 40002500 afc8
+  ww 40002504 57e4
+

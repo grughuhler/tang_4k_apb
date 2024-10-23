@@ -148,28 +148,28 @@ void parse(char *buf, unsigned int len)
       len -= 2;
       switch (commands[i].num_args) {
       case 0:
-	commands[i].u.func0();
-	cmd_not_ok = 0;
-	break;
+        commands[i].u.func0();
+        cmd_not_ok = 0;
+        break;
       case 1:
-	eat_spaces(&buf, &len);
-	if (get_hex(&buf, &len, &val1)) {
-	  commands[i].u.func1(val1);
-	  cmd_not_ok = 0;
-	}
-	break;
+        eat_spaces(&buf, &len);
+        if (get_hex(&buf, &len, &val1)) {
+          commands[i].u.func1(val1);
+          cmd_not_ok = 0;
+        }
+        break;
       case 2:
-	eat_spaces(&buf, &len);
-	if (get_hex(&buf, &len, &val1)) {
-	  eat_spaces(&buf, &len);
-	  if (get_hex(&buf, &len, &val2)) {
-	    commands[i].u.func2(val1, val2);
-	    cmd_not_ok = 0;
-	  }
-	}
-	break;
+        eat_spaces(&buf, &len);
+        if (get_hex(&buf, &len, &val1)) {
+          eat_spaces(&buf, &len);
+          if (get_hex(&buf, &len, &val2)) {
+            commands[i].u.func2(val1, val2);
+            cmd_not_ok = 0;
+          }
+        }
+        break;
       default:
-	break;
+        break;
       }
       break;
     }
