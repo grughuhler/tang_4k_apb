@@ -4,7 +4,7 @@ COMMONFLAGS = -mthumb -mcpu=cortex-m3
 CFLAGS = $(COMMONFLAGS) -nostartfiles -nostdlib -static -O1
 CPPFLAGS = 
 ASFLAGS = $(COMMONFLAGS)
-LIBS = /usr/lib/gcc/arm-none-eabi/10.3.1/libgcc.a
+LIBS = -lgcc
 
 CC = arm-none-eabi-gcc
 OBJCOPY = arm-none-eabi-objcopy
